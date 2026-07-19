@@ -26,7 +26,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
-                .allowedOriginPatterns("http://localhost:*", "http://127.0.0.1:*")
+                .allowedOriginPatterns("http://localhost:*", "http://127.0.0.1:*", "https://*.ngrok-free.dev")
                 .allowedMethods("*")
                 .allowedHeaders("*");
     }
@@ -36,3 +36,4 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/uploads/**").addResourceLocations("file:" + uploadDir + "/");
     }
 }
+
