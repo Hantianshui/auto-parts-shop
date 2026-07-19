@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>汽配店销售库存记录</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Auto Parts Ledger</p>
+        <h1>汽配店销售和库存</h1>
+      </div>
+      <div class="summary">
+        <span><strong id="partsCount">0</strong> 种零件</span>
+        <span><strong id="stockValue">0</strong> 元库存</span>
+        <span><strong id="monthSales">0</strong> 元本月销售</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel entry-panel">
+        <div class="panel-title">
+          <h2>录入销售</h2>
+          <button id="voiceBtn" class="icon-button" title="语音输入" type="button">🎙</button>
+        </div>
+        <p id="voiceStatus" class="hint">可手动填写，也可点击麦克风后说：卖出 刹车片 2 个 单价 120 客户李师傅</p>
+        <form id="saleForm" class="form-grid">
+          <label>零件名称<input name="partName" required placeholder="例如：机油滤芯" /></label>
+          <label>数量<input name="quantity" required type="number" min="1" value="1" /></label>
+          <label>单价<input name="price" required type="number" min="0" step="0.01" placeholder="元" /></label>
+          <label>客户<input name="customer" placeholder="客户或车牌" /></label>
+          <label class="wide">备注<input name="note" placeholder="车型、安装情况、欠款等" /></label>
+          <button class="primary" type="submit">记录销售并扣库存</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="panel-title">
+          <h2>新增或补货</h2>
+        </div>
+        <form id="partForm" class="form-grid">
+          <label>零件名称<input name="name" required placeholder="例如：空气滤芯" /></label>
+          <label>库存数量<input name="stock" required type="number" min="0" value="0" /></label>
+          <label>进货价<input name="cost" type="number" min="0" step="0.01" placeholder="元" /></label>
+          <label>售价<input name="price" type="number" min="0" step="0.01" placeholder="元" /></label>
+          <label>适用车型<input name="models" placeholder="例如：大众朗逸、宝来" /></label>
+          <label>供货商<input name="supplier" placeholder="例如：老王汽配 138..." /></label>
+          <label class="wide">供货信息<input name="supplierInfo" placeholder="地址、微信、发货速度、账期、替代品牌" /></label>
+          <button class="primary" type="submit">保存零件</button>
+        </form>
+      </section>
+
+      <section class="toolbar">
+        <input id="search" placeholder="搜索零件、车型、供货商" />
+        <select id="stockFilter">
+          <option value="all">全部库存</option>
+          <option value="low">低库存</option>
+          <option value="empty">缺货</option>
+        </select>
+        <button id="exportBtn" type="button">导出数据</button>
+        <label class="import">导入<input id="importInput" type="file" accept="application/json" /></label>
+      </section>
+
+      <section class="content-grid">
+        <div class="panel">
+          <div class="panel-title"><h2>库存</h2></div>
+          <div id="partsList" class="list"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-title"><h2>销售记录</h2></div>
+          <div id="salesList" class="list compact"></div>
+        </div>
+      </section>
+    </main>
+
+    <template id="partTemplate">
+      <article class="item">
+        <div>
+          <h3></h3>
+          <p class="meta"></p>
+          <p class="supplier"></p>
+        </div>
+        <div class="item-actions">
+          <strong class="stock"></strong>
+          <button type="button" class="small edit">编辑</button>
+          <button type="button" class="small danger delete">删除</button>
+        </div>
+      </article>
+    </template>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
